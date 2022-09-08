@@ -4,8 +4,8 @@ import {ApolloGateway, IntrospectAndCompose} from '@apollo/gateway';
 const gateway = new ApolloGateway({
     supergraphSdl: new IntrospectAndCompose({
         subgraphs: [
-            {name: 'users', url: 'http://localhost:4001/query'},
-            {name: 'profile', url: 'http://localhost:4002/query'},
+            {name: 'users', url: 'https://gin-production-44b2.up.railway.app/query'},
+            // {name: 'profile', url: 'http://localhost:4002/query'},
         ],
     })
 });
