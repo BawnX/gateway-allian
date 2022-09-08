@@ -1,6 +1,20 @@
-import { createServer } from 'http';
+const { ApolloServer } = require('apollo-server');
+const { ApolloGateway, IntrospectAndCompose } = require('@apollo/gateway');
 
-createServer((req, res) => {
-  res.write('Hello World!');
-  res.end();
-}).listen(process.env.PORT);
+const gateway = new ApolloGateway({
+  supergraphSdl: new IntrospectAndCompose({
+    subgraphs: [
+      { name: 'users', url: 'http://localhost:4001/query' },
+      { name: 'profile', url: 'http://localhost:4002/query' },
+    ],
+  })
+});
+
+const server = new ApolloServer({
+  gateway,
+  subscriptions: false,
+});
+
+server.listen().then(({ url }) => {
+  console.log(`Server ready at ${url}`);
+});
