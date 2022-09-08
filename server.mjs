@@ -13,6 +13,7 @@ const gateway = new ApolloGateway({
 const server = new ApolloServer({
     gateway,
     subscriptions: false,
+    introspection: true,
 });
 
 server.listen(process.env.PORT).then(({url}) => {
